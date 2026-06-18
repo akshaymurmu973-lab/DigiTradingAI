@@ -69,7 +69,7 @@ body{background:#0a0f1a;color:#fff;font-family:Arial,sans-serif;min-height:100vh
 <div id="results"></div>
 
 <script>
-const GEMINI_KEY = "AQ.Ab8RN6LeBizwah7YMIDS7XC7ze0049P4ykd_pNrP86e14A8kMiOEw";
+const GEMINI_KEY = localStorage.getItem("gkey") || "";
 let imageBase64 = "";
 
 function handleImage(e) {
