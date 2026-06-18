@@ -128,7 +128,7 @@ async function analyzeChart() {
   document.getElementById("results").innerHTML = '<div class="loading"><div class="spinner"></div><p>AI Analysis চলছে...</p></div>';
   const prompt = `তুমি expert stock market trader। এই chart বিশ্লেষণ করো বাংলায়:\n\nBUY_ENTRY: [price]\nTAKE_PROFIT_1: [price]\nTAKE_PROFIT_2: [price]\nSTOP_LOSS: [price]\nSUPPORT_1: [price]\nSUPPORT_2: [price]\nRESISTANCE: [price]\nTREND: [Bullish/Bearish/Sideways]\nSIGNAL: [Strong Buy/Buy/Neutral/Sell/Strong Sell]\nANALYSIS: [বাংলায় বিস্তারিত 3-4 লাইন]\nRISK: [Low/Medium/High]`;
   try {
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({contents:[{parts:[{text:prompt},{inline_data:{mime_type:"image/jpeg",data:imageBase64}}]}]})});
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({contents:[{parts:[{text:prompt},{inline_data:{mime_type:"image/jpeg",data:imageBase64}}]}]})});
     const data = await res.json();
     if(data.error) throw new Error(data.error.message);
     showResults(data.candidates[0].content.parts[0].text);
