@@ -1,0 +1,29 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0%" stop-color="#0f172a"/>
+<stop offset="100%" stop-color="#22c55e"/>
+</linearGradient>
+</defs>
+
+<!-- background -->
+<rect width="512" height="512" rx="100" fill="url(#bg)"/>
+
+<!-- chart line -->
+<polyline points="80,350 170,280 250,310 330,180 420,120"
+fill="none" stroke="white" stroke-width="14"/>
+
+<!-- dots -->
+<circle cx="80" cy="350" r="10" fill="white"/>
+<circle cx="170" cy="280" r="10" fill="white"/>
+<circle cx="250" cy="310" r="10" fill="white"/>
+<circle cx="330" cy="180" r="10" fill="white"/>
+<circle cx="420" cy="120" r="10" fill="white"/>
+
+<!-- title -->
+<text x="110" y="460" font-size="32" fill="white" font-family="Arial">
+Digi AI Pro
+</text>
+
+</svg>

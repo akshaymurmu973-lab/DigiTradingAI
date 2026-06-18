@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+
+Compound Calculator
+
+</title>
+
+<link rel="stylesheet"
+href="../style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+
+<h1>
+
+Compound Calculator
+
+</h1>
+
+<p>
+
+Digi Trading AI
+
+</p>
+
+</div>
+
+
+<div class="card">
+
+<input
+
+type="number"
+
+id="amount"
+
+placeholder="Initial Balance"
+
+>
+
+<br><br>
+
+
+<input
+
+type="number"
+
+id="percent"
+
+placeholder="Monthly Growth %"
+
+>
+
+<br><br>
+
+
+<input
+
+type="number"
+
+id="months"
+
+placeholder="Months"
+
+>
+
+<br><br>
+
+
+<button
+
+onclick="calculateCompound()"
+
+>
+
+Calculate
+
+</button>
+
+
+<h2 id="result">
+
+</h2>
+
+</div>
+
+</div>
+
+
+
+<script>
+
+function calculateCompound(){
+
+let amount=
+
+parseFloat(
+
+document.getElementById(
+
+"amount"
+
+).value
+
+);
+
+
+let percent=
+
+parseFloat(
+
+document.getElementById(
+
+"percent"
+
+).value
+
+);
+
+
+let months=
+
+parseInt(
+
+document.getElementById(
+
+"months"
+
+).value
+
+);
+
+
+let total=amount;
+
+
+for(
+
+let i=0;
+
+i<months;
+
+i++
+
+){
+
+total=
+
+total+
+
+(
+
+total*
+
+percent/
+
+100
+
+);
+
+}
+
+
+document
+
+.getElementById(
+
+"result"
+
+)
+
+.innerHTML=
+
+"Final Balance : $ "
+
++
+
+total.toFixed(2);
+
+}
+
+</script>
+
+</body>
+
+</html>

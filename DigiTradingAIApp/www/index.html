@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digi Trading AI Ultra Pro</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="header">
+<h1>📊 Digi Trading AI ULTRA PRO</h1>
+<p>Professional Risk Management Toolkit</p>
+</div>
+
+<div class="grid">
+
+<div class="card">
+<h3>Risk Calculator</h3>
+<input id="balance" placeholder="Balance">
+<input id="risk" placeholder="Risk %">
+<input id="sl" placeholder="Stop Loss">
+<button onclick="calculateRisk()">Calculate</button>
+<div id="result"></div>
+</div>
+
+<div class="card">
+<h3>Profit / Loss</h3>
+<input id="buy" placeholder="Buy Price">
+<input id="sell" placeholder="Sell Price">
+<input id="qty" placeholder="Quantity">
+<button onclick="calculateProfit()">Calculate</button>
+<div id="result"></div>
+</div>
+
+<div class="card">
+<h3>Compound Growth</h3>
+<input id="amount" placeholder="Amount">
+<input id="percent" placeholder="Growth %">
+<input id="months" placeholder="Months">
+<button onclick="calculateCompound()">Calculate</button>
+</div>
+
+<div class="card">
+<h3>Stop Loss Tool</h3>
+<input id="entry" placeholder="Entry Price">
+<input id="sl_price" placeholder="Stop Loss Price">
+<button onclick="calculateSL()">Calculate</button>
+<div id="sl_result"></div>
+</div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

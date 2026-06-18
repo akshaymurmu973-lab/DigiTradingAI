@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Trade Notes</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+<h1>AI Trade Notes</h1>
+<p>Digi Trading AI</p>
+</div>
+
+<div class="card">
+
+<textarea id="note"
+placeholder="Write your trade notes here..."
+style="width:90%;height:150px;padding:15px;border-radius:15px;"></textarea>
+
+<br><br>
+
+<button onclick="saveNote()">
+Save Note
+</button>
+
+<h3>Saved Notes</h3>
+
+<div id="notes"></div>
+
+</div>
+
+</div>
+
+<script>
+
+function loadNotes(){
+
+let notes=
+
+JSON.parse(
+
+localStorage.getItem("trade_notes")
+
+)||[];
+
+
+let output="";
+
+
+for(let i=0;i<notes.length;i++){
+
+output+=
+
+"<p>"+
+
+notes[i]+
+
+"</p><hr>";
+
+}
+
+
+document.getElementById(
+
+"notes"
+
+).innerHTML=output;
+
+}
+
+
+function saveNote(){
+
+let text=
+
+document.getElementById(
+
+"note"
+
+).value;
+
+
+if(text=="") return;
+
+
+let notes=
+
+JSON.parse(
+
+localStorage.getItem(
+
+"trade_notes"
+
+)
+
+)||[];
+
+
+notes.push(text);
+
+
+localStorage.setItem(
+
+"trade_notes",
+
+JSON.stringify(notes)
+
+);
+
+
+document.getElementById(
+
+"note"
+
+).value="";
+
+
+loadNotes();
+
+}
+
+
+loadNotes();
+
+</script>
+
+</body>
+</html>

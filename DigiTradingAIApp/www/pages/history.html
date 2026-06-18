@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>History</title>
+<link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+<div class="hero">
+<h1>Trade History</h1>
+<p>Saved calculations</p>
+</div>
+
+<div id="box" class="grid"></div>
+
+<div style="text-align:center;padding:20px;">
+<button onclick="clearH()">Clear History</button>
+</div>
+
+<script>
+
+function load(){
+let h=JSON.parse(localStorage.getItem("history"))||[];
+let box=document.getElementById("box");
+
+if(h.length===0){
+box.innerHTML="No history";
+return;
+}
+
+let html="";
+for(let i=h.length-1;i>=0;i--){
+html+=`
+<div class="card">
+<b>${h[i].type}</b><br>
+<small>${h[i].time}</small><br>
+<pre>${JSON.stringify(h[i].data,null,2)}</pre>
+</div>`;
+}
+box.innerHTML=html;
+}
+
+function clearH(){
+localStorage.removeItem("history");
+load();
+}
+
+load();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+
+Position Size Calculator
+
+</title>
+
+<link rel="stylesheet"
+href="../style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+
+<h1>
+
+Position Size
+
+</h1>
+
+<p>
+
+Digi Trading AI
+
+</p>
+
+</div>
+
+
+
+<div class="card">
+
+<input
+
+type="number"
+
+id="balance"
+
+placeholder="Account Balance"
+
+>
+
+<br><br>
+
+<input
+
+type="number"
+
+id="risk"
+
+placeholder="Risk %"
+
+>
+
+<br><br>
+
+<input
+
+type="number"
+
+id="sl"
+
+placeholder="Stop Loss (Pips)"
+
+>
+
+<br><br>
+
+
+<button
+
+onclick="calculatePosition()"
+
+>
+
+Calculate
+
+</button>
+
+
+<h2 id="result">
+
+</h2>
+
+</div>
+
+</div>
+
+
+
+<script>
+
+function calculatePosition(){
+
+
+let balance=
+
+parseFloat(
+
+document.getElementById(
+
+"balance"
+
+).value
+
+);
+
+
+
+let risk=
+
+parseFloat(
+
+document.getElementById(
+
+"risk"
+
+).value
+
+);
+
+
+
+let sl=
+
+parseFloat(
+
+document.getElementById(
+
+"sl"
+
+).value
+
+);
+
+
+
+let riskAmount=
+
+(balance*risk)/100;
+
+
+
+let lot=
+
+riskAmount/
+
+(sl*10);
+
+
+
+document
+
+.getElementById(
+
+"result"
+
+)
+
+.innerHTML=
+
+"Lot Size : "
+
++
+
+lot.toFixed(2);
+
+}
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DG Trading Pro</title>
+<link rel="manifest" href="manifest.json">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0f1a;color:#fff;font-family:Arial,sans-serif;min-height:100vh}
+.header{background:#0d1421;padding:16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #1a2a3a}
+.logo{background:#00c853;color:#000;font-weight:bold;padding:8px 12px;border-radius:8px;font-size:16px}
+.header-text h1{font-size:18px;color:#fff}
+.header-text p{font-size:11px;color:#00c853}
+.badge{display:flex;gap:8px;padding:8px 16px;font-size:10px}
+.badge span{background:#0d2a1a;color:#00c853;padding:4px 8px;border-radius:4px}
+.upload-box{margin:16px;border:2px dashed #1a3a2a;border-radius:12px;padding:40px 20px;text-align:center;cursor:pointer;background:#0d1a0f}
+.upload-box input{display:none}
+.upload-icon{font-size:48px;margin-bottom:12px}
+.upload-box h3{color:#ccc;margin-bottom:6px}
+.upload-box p{color:#666;font-size:12px}
+.preview-img{max-width:100%;max-height:200px;border-radius:8px;margin-top:12px}
+.btn{width:calc(100% - 32px);margin:0 16px 16px;padding:16px;background:#00c853;color:#000;border:none;border-radius:12px;font-size:16px;font-weight:bold;cursor:pointer}
+.btn:disabled{background:#1a3a1a;color:#666}
+.btn:active{background:#00a843}
+.results{padding:0 16px 16px}
+.card{background:#0d1421;border-radius:12px;padding:16px;margin-bottom:12px;border-left:3px solid #1a2a3a}
+.card.buy{border-left-color:#00c853}
+.card.profit{border-left-color:#ff9800}
+.card.loss{border-left-color:#f44336}
+.card.support{border-left-color:#2196f3}
+.card.analysis{border-left-color:#9c27b0}
+.card-label{font-size:11px;color:#888;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.card-value{font-size:18px;font-weight:bold;color:#fff}
+.card-sub{font-size:12px;color:#888;margin-top:4px}
+.analysis-text{font-size:13px;color:#ccc;line-height:1.6}
+.loading{text-align:center;padding:20px;color:#00c853}
+.spinner{display:inline-block;width:30px;height:30px;border:3px solid #1a3a1a;border-top-color:#00c853;border-radius:50%;animation:spin 1s linear infinite;margin-bottom:8px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.error{background:#1a0d0d;border:1px solid #f44336;border-radius:8px;padding:12px;margin:16px;color:#f44336;font-size:13px}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="logo">DG</div>
+  <div class="header-text">
+    <h1>DG TRADING PRO</h1>
+    <p>● SYSTEM ACTIVE · SECURE BACKEND</p>
+  </div>
+</div>
+<div class="badge">
+  <span>🤖 AI POWERED</span>
+  <span>📊 CHART ANALYSIS</span>
+  <span>∞ UNLIMITED</span>
+</div>
+
+<div class="upload-box" onclick="document.getElementById('imgInput').click()">
+  <input type="file" id="imgInput" accept="image/*" onchange="handleImage(event)">
+  <div class="upload-icon">📁</div>
+  <h3>Upload Screenshot</h3>
+  <p>Chart screenshot আপলোড করুন</p>
+  <img id="preview" class="preview-img" style="display:none">
+</div>
+
+<button class="btn" id="analyzeBtn" onclick="analyzeChart()" disabled>
+  📊 Run Pro AI Analysis
+</button>
+
+<div id="results"></div>
+
+<script>
+const GEMINI_KEY = "AQ.Ab8RN6LeBizwah7YMIDS7XC7ze0049P4ykd_pNrP86e14A8kMiOEw";
+let imageBase64 = "";
+
+function handleImage(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    imageBase64 = ev.target.result.split(",")[1];
+    const preview = document.getElementById("preview");
+    preview.src = ev.target.result;
+    preview.style.display = "block";
+    document.querySelector(".upload-box h3").textContent = file.name;
+    document.getElementById("analyzeBtn").disabled = false;
+  };
+  reader.readAsDataURL(file);
+}
+
+async function analyzeChart() {
+  if (!imageBase64) return;
+  const btn = document.getElementById("analyzeBtn");
+  btn.disabled = true;
+  btn.textContent = "⏳ Analysing...";
+  document.getElementById("results").innerHTML = `
+    <div class="loading">
+      <div class="spinner"></div>
+      <p>AI Chart Analysis চলছে...</p>
+    </div>`;
+
+  const prompt = `তুমি একজন expert stock market trader এবং technical analyst। এই chart screenshot টি বিশ্লেষণ করো এবং নিচের format-এ বাংলায় উত্তর দাও:
+
+BUY_ENTRY: [price]
+TAKE_PROFIT_1: [price]
+TAKE_PROFIT_2: [price]
+STOP_LOSS: [price]
+SUPPORT_1: [price]
+SUPPORT_2: [price]
+RESISTANCE: [price]
+TREND: [Bullish/Bearish/Sideways]
+SIGNAL: [Strong Buy/Buy/Neutral/Sell/Strong Sell]
+ANALYSIS: [বাংলায় বিস্তারিত analysis 3-4 লাইন]
+RISK: [Low/Medium/High]`;
+
+  try {
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`,
+      {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+          contents: [{
+            parts: [
+              {text: prompt},
+              {inline_data: {mime_type: "image/jpeg", data: imageBase64}}
+            ]
+          }]
+        })
+      }
+    );
+    const data = await res.json();
+    if (data.error) throw new Error(data.error.message);
+    const text = data.candidates[0].content.parts[0].text;
+    showResults(text);
+  } catch (err) {
+    document.getElementById("results").innerHTML = `<div class="error">❌ Error: ${err.message}</div>`;
+  }
+  btn.disabled = false;
+  btn.textContent = "📊 Run Pro AI Analysis";
+}
+
+function get(text, key) {
+  const match = text.match(new RegExp(key + ":\\s*([^\\n]+)"));
+  return match ? match[1].trim() : "—";
+}
+
+function showResults(text) {
+  const analysis = get(text, "ANALYSIS");
+  const signal = get(text, "SIGNAL");
+  const trend = get(text, "TREND");
+  const risk = get(text, "RISK");
+  document.getElementById("results").innerHTML = `
+    <div class="results">
+      <div class="card buy">
+        <div class="card-label">▲ BUY ENTRY</div>
+        <div class="card-value">${get(text,"BUY_ENTRY")}</div>
+      </div>
+      <div class="card profit">
+        <div class="card-label">● TAKE PROFIT</div>
+        <div class="card-value">${get(text,"TAKE_PROFIT_1")}</div>
+        <div class="card-sub">TP2: ${get(text,"TAKE_PROFIT_2")}</div>
+      </div>
+      <div class="card loss">
+        <div class="card-label">▼ STOP LOSS</div>
+        <div class="card-value">${get(text,"STOP_LOSS")}</div>
+      </div>
+      <div class="card support">
+        <div class="card-label">🛡 KEY SUPPORT ZONES</div>
+        <div class="card-value">${get(text,"SUPPORT_1")}</div>
+        <div class="card-sub">S2: ${get(text,"SUPPORT_2")} | Resistance: ${get(text,"RESISTANCE")}</div>
+      </div>
+      <div class="card analysis">
+        <div class="card-label">🤖 AI ANALYSIS</div>
+        <div class="card-value" style="font-size:14px;color:#00c853">${signal} | ${trend}</div>
+        <div class="analysis-text" style="margin-top:8px">${analysis}</div>
+        <div class="card-sub" style="margin-top:8px">Risk: ${risk}</div>
+      </div>
+    </div>`;
+}
+
+if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
+</script>
+</body>
+</html>

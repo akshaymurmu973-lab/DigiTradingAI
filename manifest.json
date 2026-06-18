@@ -1,0 +1,23 @@
+{
+  "name": "DigiTradingAI",
+  "short_name": "DigiAI",
+  "start_url": "/DigiTradingAI/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "description": "AI Trading Assistant App",
+  "icons": [
+    {
+      "src": "https://akshaymurmu973-lab.github.io/DigiTradingAI/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://akshaymurmu973-lab.github.io/DigiTradingAI/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

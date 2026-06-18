@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+
+Risk Calculator
+
+</title>
+
+<link rel="stylesheet"
+href="../style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+
+<h1>
+
+Risk Calculator
+
+</h1>
+
+<p>
+
+Digi Trading AI
+
+</p>
+
+</div>
+
+
+
+<div class="card">
+
+<input
+
+type="number"
+
+id="balance"
+
+placeholder="Account Balance"
+
+>
+
+<br><br>
+
+<input
+
+type="number"
+
+id="risk"
+
+placeholder="Risk %"
+
+>
+
+<br><br>
+
+<button
+
+onclick="calculate()"
+
+>
+
+Calculate
+
+</button>
+
+<h2 id="result">
+
+</h2>
+
+</div>
+
+</div>
+
+
+
+<script>
+
+function calculate(){
+
+let balance=
+
+parseFloat(
+
+document.getElementById(
+
+"balance"
+
+).value
+
+);
+
+
+
+let risk=
+
+parseFloat(
+
+document.getElementById(
+
+"risk"
+
+).value
+
+);
+
+
+
+let amount=
+
+(
+
+balance*risk
+
+)/100;
+
+
+
+document
+
+.getElementById(
+
+"result"
+
+)
+
+.innerHTML=
+
+"Risk Amount : $ "
+
++
+
+amount.toFixed(2);
+
+}
+
+</script>
+
+</body>
+
+</html>

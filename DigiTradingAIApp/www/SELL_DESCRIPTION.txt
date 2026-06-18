@@ -1,0 +1,27 @@
+DIGI TRADING AI PRO
+
+A Professional Offline Trading Toolkit App
+
+FEATURES:
+- Risk Calculator (Position sizing)
+- Profit / Loss Calculator
+- Compound Growth Calculator
+- Trade Notes System
+- History Tracking System
+
+USE CASE:
+For Forex, Crypto, Gold traders to manage risk and calculate trades.
+
+TECH STACK:
+HTML + CSS + JavaScript (Offline App)
+
+NO INTERNET REQUIRED
+100% Mobile Friendly
+Works in Browser / Android WebView
+
+IDEAL FOR:
+- Beginner Traders
+- Forex Learners
+- Crypto Traders
+
+VERSION: 1.0 PRO
